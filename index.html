@@ -42,7 +42,8 @@
                     <h2 class="lg:text-5xl"><span class="text-[#5255ad]">ReTro</span> Forum</h2>
                     <p class="mt-4">Share your opinion with us <br> about retro</p>
                     <div class="card-actions justify-start mt-7">
-                        <input id="search-box" type="text" placeholder="Search your item" class="input input-bordered lg:w-full max-w-xs text-black" />
+                        <input id="search-box" type="text" placeholder="Search your item"
+                            class="input input-bordered lg:w-full max-w-xs text-black" />
                         <button onclick="handleSearch()" id="search-btn" class="btn btn-primary">Search</button>
                     </div>
                 </div>
@@ -79,7 +80,9 @@
             <p class="w-[450px] m-auto">Discussing the impact of retro pop culture on society can lead to conversations
                 about generational differences</p>
         </div>
-
+        <div id="loading-spinner" class="text-center my-32 hidden">
+            <span class="loading loading-spinner loading-md"></span>
+        </div>
         <div class="lg:flex justify-between gap-10">
             <div id="card-container" class="card mt-16 lg:w-3/4 flex ">
                 <!-- <div class="card-body">
@@ -95,7 +98,7 @@
                                 your
                                 prerogative</p>
                             <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
-                            <div class="flex justify-around">
+                            <div class="flex">
                                 <div class="flex">
                                     <img src="images/msg.png" alt="msg">
                                     <p>560</p>
@@ -110,26 +113,71 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="mt-48">
+                            <button><img src="images/email 1.png" alt=""></button>
+                        </div>
                     </div>
 
 
                 </div> -->
 
             </div>
-            <div class=" lg:w-1/3 mx-auto mt-16 rounded-xl p-4">
+            <div class=" lg:w-1/3 mx-auto mt-20 rounded-xl p-4">
                 <div class="flex justify-between pb-4">
                     <p>Title</p>
                     <div class="flex">
                         <img src="images/Frame (7).png" alt="">
-                    <p>Mark as read <span>(0)</span></p>
+                        <p>Mark as read <span>(0)</span></p>
                     </div>
                 </div>
-                <ul id="title" class="bg-[#ffffff] drop-shadow-xl mb-5 rounded-xl flex justify-between items-center pr-4 pl-4">
+                <ul id="title"
+                    class="bg-[#ffffff] drop-shadow-xl mb-5 rounded-xl flex justify-between items-center pr-4 pl-4">
 
                 </ul>
             </div>
 
         </div>
+
+        <!-- design section -->
+        <div
+            class="lg:flex justify-center items-center p-5 lg:p-20 image-full bg-[#12132dFF] lg:h-96 mt-10 rounded-xl mb-20">
+            <div>
+                <p class="lg:text-4xl text-white font-bold mb-4">Join Our Forum</p>
+                <p class="text-white opacity-60 mb-4">Retro culture provides a unique opportunity to connect with the
+                    past and reminisce about bygone eras.
+                </p>
+                <button class="btn rounded-full bg-[#797dfc] border-none">Registered Now</button>
+            </div>
+            <div>
+                <img class="lg:mt-0 mt-5" src="images/joinforum.png" alt="">
+            </div>
+
+
+        </div>
+
+        <!-- Latest Post Section -->
+
+        <div class="flex flex-col justify-center items-center mb-16">
+            <h1 class="text-5xl text-black font-bold mb-4">Latest Posts</h1>
+            <p class="lg:w-[600px] text-center">The latest post dives into the resurgence of retro aesthetics,
+                uncovering
+                the enduring appeal of vintage styles in today's modern landscape.</p>
+        </div>
+
+        <div>
+            <div class="card w-96 bg-base-100 shadow-xl">
+                <img class="p-8" src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="" />
+                
+                <div class="card-body">
+                    <h2 class="card-title">Shoes!</h2>
+                    <p>If a dog chews shoes whose shoes does he choose?</p>
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-primary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <footer>
 
