@@ -1,16 +1,17 @@
-const loadData = async () => {
-    const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/posts');
+const loadData = async (dataText) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${dataText}`);
     const data = await res.json();
-    // console.log(data.posts)
     const cardContainer = document.getElementById('card-container');
 
+    // Clear the cardContainer before adding the new card
+    cardContainer.textContent = ''
+
+
     data.posts.forEach((item) => {
-        // console.log(item);
         const div = document.createElement('div');
-        // div.classList.add('card-body');
         div.innerHTML = `
         <div class="card-body">
-                    <div class="flex p-10 gap-5 bg-[#f2f2ff]">
+                    <div class="flex p-10 gap-5 bg-[#f2f2ff] rounded-xl">
                         <img class="w-1/12 h-1/4 rounded-xl" src="${item.image}" alt="">
                         <div>
                             <div class="flex mb-4">
@@ -41,8 +42,21 @@ const loadData = async () => {
                 </div>
         `
         cardContainer.appendChild(div);
-        console.log(item)
+        // console.log(item)
 
     });
 }
-loadData();
+
+
+const handleSearch = () => {
+    const inputField = document.getElementById('search-box');
+    const inputFieldText = inputField.value;
+    console.log(inputFieldText)
+    loadData(inputFieldText)
+}
+
+
+
+
+
+// loadData();
