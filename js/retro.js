@@ -1,6 +1,7 @@
 const loadData = async (dataText = 'comedy') => {
     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${dataText}`);
     const data = await res.json();
+    // console.log(data.posts)
     const cardContainer = document.getElementById('card-container');
 
     // Clear the cardContainer before adding the new card
@@ -51,7 +52,7 @@ const loadData = async (dataText = 'comedy') => {
     });
 
     // hidden loading spinner
-    taggleLoadingSpinner(false);
+    // taggleLoadingSpinner(false);
 }
 
 
@@ -63,16 +64,61 @@ const handleSearch = () => {
     loadData(inputFieldText)
 }
 
-const taggleLoadingSpinner = (isLoading) => {
+// const taggleLoadingSpinner = (isLoading) => {
+//     const loadingSpinner = document.getElementById('loading-spinner');
+//     if (isLoading) {
+//         loadingSpinner.classList.remove('hidden');
+//     }
+//     else {
+//         loadingSpinner.classList.add('hidden')
+//     }
+// }
+
+const taggleLoadingSpinner = () => {
     const loadingSpinner = document.getElementById('loading-spinner');
-    if (isLoading) {
-        loadingSpinner.classList.remove('hidden');
-    }
-    else {
-        loadingSpinner.classList.add('hidden')
-    }
+    loadingSpinner.classList.remove('hidden');
+    setTimeout(() => {
+        loadingSpinner.classList.add('hidden');
+    }, 2000); // 2000 milliseconds = 2 seconds
 }
 
 
+
+
+// Latest card container
+const latestCardContainer = async () => {
+    const res = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts');
+    const data = await res.json();
+
+    const latestContainer = document.getElementById('latest-card-container');
+
+    data.forEach((card) => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <div class="card bg-base-100 shadow-xl p-8">
+        <img src="${card.cover_image}" alt="" />
+    
+        <div class="flex mt-4 mb-4">
+            <img src="images/Frame (8).png" alt="">
+            <h1 class="pl-2">${card.author.posted_date}</h1>
+        </div>
+        <p class="text-black font-bold mb-4">${card.title}</p>
+        <p class="text-black opacity-60 mb-4">${card.description}</p>
+
+        <div class="flex">
+            <img class="w-1/6 rounded-full" src="${card.profile_image}" alt="">
+            <div class="pl-4">
+                <h1 class="text-black font-medium">${card.author.name}</h1>
+                <h1 class="text-black opacity-60">${card.author.designation}</h1>
+            </div>
+        </div>
+    </div>
+        `
+        latestContainer.appendChild(div)
+        console.log(card);
+    })
+}
+
+latestCardContainer();
 
 loadData();
