@@ -100,7 +100,7 @@ const latestCardContainer = async () => {
     
         <div class="flex mt-4 mb-4">
             <img src="images/Frame (8).png" alt="">
-            <h1 class="pl-2">${card.author.posted_date}</h1>
+            <h1 class="pl-2">${card.author.posted_date || 'No Publish Date'}</h1>
         </div>
         <p class="text-black font-bold mb-4">${card.title}</p>
         <p class="text-black opacity-60 mb-4">${card.description}</p>
@@ -109,7 +109,7 @@ const latestCardContainer = async () => {
             <img class="w-1/6 rounded-full" src="${card.profile_image}" alt="">
             <div class="pl-4">
                 <h1 class="text-black font-medium">${card.author.name}</h1>
-                <h1 class="text-black opacity-60">${card.author.designation}</h1>
+                <h1 class="text-black opacity-60">${card.author.designation || 'Unknown'}</h1>
             </div>
         </div>
     </div>
