@@ -1,4 +1,4 @@
-const loadData = async (dataText = 'comedy') => {
+const loadData = async (dataText = '') => {
     const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${dataText}`);
     const data = await res.json();
     // console.log(data.posts)
@@ -8,12 +8,21 @@ const loadData = async (dataText = 'comedy') => {
     cardContainer.textContent = ''
 
 
+
+
     data.posts.forEach((item) => {
+        let active = `<img class="w-3 h-3 absolute left-20" src="images/Status (1).png" alt=""></img>`
+        if (item.isActive) {
+
+            active = `<img class="w-3 h-3 absolute left-20" src="images/Status.png" alt=""></img>`
+        }
+
         const div = document.createElement('div');
         div.innerHTML = `
         <div class="card-body">
                     <div class="flex p-2 lg:p-10 gap-5 bg-[#f2f2ff] rounded-xl drop-shadow-xl">
-                        <img class="w-1/12 h-1/4 rounded-xl" src="${item.image}" alt="">
+                        <img class="w-1/12 h-1/4 relative rounded-xl" src="${item.image}" alt="">
+                        ${active}
                         <div>
                             <div class="flex mb-4">
                                 <p># ${item.category}</p>
@@ -36,7 +45,7 @@ const loadData = async (dataText = 'comedy') => {
                                     <p>${item.posted_time} min</p>
                                 </div>
                                 <div class=" flex justify-end">
-                            <button><img src="images/email 1.png" alt=""></button>
+                            <button onclick="handleClick(${item.id})" class="add-btn"><img src="images/email 1.png" alt=""></button>
                         </div>
                             </div>
                         </div>
@@ -46,7 +55,9 @@ const loadData = async (dataText = 'comedy') => {
 
                 </div>
         `
+        div.innerText
         cardContainer.appendChild(div);
+
         // console.log(item)
 
     });
@@ -64,15 +75,6 @@ const handleSearch = () => {
     loadData(inputFieldText)
 }
 
-// const taggleLoadingSpinner = (isLoading) => {
-//     const loadingSpinner = document.getElementById('loading-spinner');
-//     if (isLoading) {
-//         loadingSpinner.classList.remove('hidden');
-//     }
-//     else {
-//         loadingSpinner.classList.add('hidden')
-//     }
-// }
 
 const taggleLoadingSpinner = () => {
     const loadingSpinner = document.getElementById('loading-spinner');
@@ -82,7 +84,16 @@ const taggleLoadingSpinner = () => {
     }, 2000); // 2000 milliseconds = 2 seconds
 }
 
-
+const activeStatus = (isActive) => {
+    const online = document.getElementById('online');
+    const ofline = document.getElementById('ofline');
+    if (isActive == 'true') {
+        online.classList.remove('hidden')
+    } else {
+        ofline.classList.add('hidden')
+    }
+}
+// activeStatus()
 
 
 // Latest card container
@@ -96,7 +107,7 @@ const latestCardContainer = async () => {
         const div = document.createElement('div');
         div.innerHTML = `
         <div class="card bg-base-100 shadow-xl p-8">
-        <img src="${card.cover_image}" alt="" />
+        <img class="rounded-xl" src="${card.cover_image}" alt="" />
     
         <div class="flex mt-4 mb-4">
             <img src="images/Frame (8).png" alt="">
@@ -115,10 +126,44 @@ const latestCardContainer = async () => {
     </div>
         `
         latestContainer.appendChild(div)
-        console.log(card);
+        // console.log(card);
     })
 }
+
+
+const handleClick = async (id) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category${id}`);
+    const data = await res.json();
+
+    const selectedItem = data.posts.find(post => post.id === id);
+    
+
+    const container = document.createElement('div');
+    container.classList.add('flex', 'justify-around', 'p-4')
+    container.style.backgroundColor = 'white'
+    container.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+    container.style.borderRadius = '16px'
+    container.style.marginBottom = '16px'
+
+    // Create and append the title
+    const titleElement = document.createElement('h2');
+    titleElement.textContent = selectedItem.title;
+    container.appendChild(titleElement);
+
+    // Create and append the view_count
+    const viewCountElement = document.createElement('p');
+    viewCountElement.textContent = `${selectedItem.view_count}`;
+    container.appendChild(viewCountElement);
+
+    
+    const parentElement = document.getElementById('parent-container');
+    parentElement.appendChild(container);
+}
+
+
 
 latestCardContainer();
 
 loadData();
+
+// handleClick()
