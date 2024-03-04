@@ -11,10 +11,10 @@ const loadData = async (dataText = '') => {
 
 
     data.posts.forEach((item) => {
-        let active = `<img class="w-3 h-3 absolute left-20" src="images/Status (1).png" alt=""></img>`
+        let active = `<img class="w-3 h-3 absolute lg:left-[75px] left-8" src="images/Status (1).png" alt=""></img>`
         if (item.isActive) {
 
-            active = `<img class="w-3 h-3 absolute left-20" src="images/Status.png" alt=""></img>`
+            active = `<img class="w-3 h-3 absolute lg:left-[75px] left-8" src="images/Status.png" alt=""></img>`
         }
 
         const div = document.createElement('div');
@@ -62,9 +62,9 @@ const loadData = async (dataText = '') => {
 
     });
 
-    // hidden loading spinner
-    // taggleLoadingSpinner(false);
 }
+
+
 
 
 const handleSearch = () => {
@@ -73,6 +73,8 @@ const handleSearch = () => {
     const inputFieldText = inputField.value;
     console.log(inputFieldText)
     loadData(inputFieldText)
+
+
 }
 
 
@@ -81,7 +83,7 @@ const taggleLoadingSpinner = () => {
     loadingSpinner.classList.remove('hidden');
     setTimeout(() => {
         loadingSpinner.classList.add('hidden');
-    }, 2000); // 2000 milliseconds = 2 seconds
+    }, 2000);
 }
 
 const activeStatus = (isActive) => {
@@ -93,7 +95,7 @@ const activeStatus = (isActive) => {
         ofline.classList.add('hidden')
     }
 }
-// activeStatus()
+
 
 
 // Latest card container
@@ -126,8 +128,10 @@ const latestCardContainer = async () => {
     </div>
         `
         latestContainer.appendChild(div)
+
         // console.log(card);
     })
+
 }
 
 
@@ -136,26 +140,42 @@ const handleClick = async (id) => {
     const data = await res.json();
 
     const selectedItem = data.posts.find(post => post.id === id);
-    
+
+    const currentMark = document.getElementById('mark');
+    const currentMarkElement = currentMark.innerText;
+    const currentElement = parseInt(currentMarkElement);
+    const newScore = currentElement + 1;
+
+    currentMark.innerText = newScore;
+    // console.log(newScore);
 
     const container = document.createElement('div');
-    container.classList.add('flex', 'justify-around', 'p-4')
+    container.classList.add('flex', 'justify-between', 'item-center', 'pt-3', 'pl-2', 'pr-2')
     container.style.backgroundColor = 'white'
     container.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    container.style.borderRadius = '16px'
+    container.style.borderRadius = '10px'
     container.style.marginBottom = '16px'
+
 
     // Create and append the title
     const titleElement = document.createElement('h2');
     titleElement.textContent = selectedItem.title;
     container.appendChild(titleElement);
 
+    titleElement.style.marginBottom = '16px'
+    titleElement.style.color = 'black', 'bold';
+
     // Create and append the view_count
     const viewCountElement = document.createElement('p');
-    viewCountElement.textContent = `${selectedItem.view_count}`;
+
+    viewCountElement.textContent =`${selectedItem.view_count}`;
+
+
     container.appendChild(viewCountElement);
 
-    
+    viewCountElement.style.opacity = '0.6';
+    viewCountElement.style.color = 'black';
+
     const parentElement = document.getElementById('parent-container');
     parentElement.appendChild(container);
 }
